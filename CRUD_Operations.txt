@@ -1,0 +1,92 @@
+*******CREATE*******
+--to insert single document
+> db.First.insertOne({name:"vaishnav",age:23,id:234114}) --single insertion
+
+--to insert more than one document
+> db.First.insertMany([{name:"abhi",age:24,id:12333},{name:"bhargav",age:25,id:45342},{name:"abhay",age:23,id:12332}])
+
+> db.First.find().pretty()
+{
+        "_id" : ObjectId("62bac0bdb99c78253a43840b"),
+        "name" : "vaishnav",
+        "age" : 23,
+        "id" : 234114
+}
+{
+        "_id" : ObjectId("62bac343b99c78253a43840c"),
+        "name" : "abhi",
+        "age" : 24,
+        "id" : 12333
+}
+{
+        "_id" : ObjectId("62bac343b99c78253a43840d"),
+        "name" : "bhargav",
+        "age" : 25,
+        "id" : 45342
+}
+
+********READ**********
+Syntax:db.collectionName.find(query,projection) --projection tells what to show and what not to show
+
+> db.First.find()
+
+> db.First.find().pretty()
+
+> db.First.find({name:"vaishnav"})
+{ "_id" : ObjectId("62bac0bdb99c78253a43840b"), "name" : "vaishnav", "age" : 23, "id" : 234114 }
+
+> db.First.find({name:"vaishnav"}).pretty()
+{
+        "_id" : ObjectId("62bac0bdb99c78253a43840b"),
+        "name" : "vaishnav",
+        "age" : 23,
+        "id" : 234114
+}
+
+> db.First.find({name:"vaishnav"},{name:1}).pretty()  --name:1 gives the name alone
+{ "_id" : ObjectId("62bac0bdb99c78253a43840b"), "name" : "vaishnav" }
+
+> db.First.find({name:"vaishnav"},{name:0}).pretty() --name:0 gives everything except name
+{ "_id" : ObjectId("62bac0bdb99c78253a43840b"), "age" : 23, "id" : 234114 }
+
+> db.First.find({name:"vaishnav"},{_id:0,name:1}).pretty() --_id:0 doesn't show id
+{ "name" : "vaishnav" }
+
+> db.First.find().pretty().limit(1) --gives the first document
+
+> db.First.find().pretty().limit(2) --gives the first two documents
+
+> db.First.findOne() --gives the first collection
+
+> db.First.find().pretty().limit(1).skip(1) --gives the second document
+
+> db.First.find().pretty().limit(1).skip(2) --gives the third document
+
+> db.First.find().pretty().limit(1).skip(3) --gives the forth document
+
+*******UPDATE*********
+Syntax: 1.db.collection.updateOne(<filter>,<update>)
+	2.db.collection.updateMany(<filter>,<update>)
+
+> db.First.updateOne({name:"vaishnav"},{$set:{id:43222}})
+before query -- {"name" : "vaishnav", "age" : 23, "id" : 234114 }
+after query -- {"name" : "vaishnav", "age" : 23, "id" : 43222}
+
+> db.First.updateMany({age:23},{$set:{id:43223}})
+before query --
+{ "name" : "vaishnav", "age" : 23, "id" : 43222 }
+{ "name" : "abhi", "age" : 24, "id" : 12333 }
+{ "name" : "bhargav", "age" : 25, "id" : 45342 }
+{ "name" : "abhay", "age" : 23, "id" : 12332 }
+after query --
+{ "name" : "vaishnav", "age" : 23, "id" : 43223 }
+{ "name" : "abhi", "age" : 24, "id" : 12333 }
+{ "name" : "bhargav", "age" : 25, "id" : 45342 }
+{ "name" : "abhay", "age" : 23, "id" : 43223 }
+
+*******DELETE********
+Syntax:db.collectionName.deleteMany(deletion_criteria)
+
+> db.First.deleteMany({id:45342})
+
+> db.First.deleteMany({}) --deletes entire documents

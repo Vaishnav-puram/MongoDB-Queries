@@ -1,0 +1,25 @@
+> use Demo --creates a database
+
+> db.First.insertOne({name:"vaishnav",age:23,id:234114}) --creates a collection in Demo database
+
+> show dbs --shows available databases
+
+> show collections --shows available collections
+First
+
+> db.First.find() --gives the data present in the collection
+{ "_id" : ObjectId("62bac0bdb99c78253a43840b"), "name" : "vaishnav", "age" : 23, "id" : 234114 }
+
+> db.First.find().pretty()
+{
+        "_id" : ObjectId("62bac0bdb99c78253a43840b"),
+        "name" : "vaishnav",
+        "age" : 23,
+        "id" : 234114
+}
+
+>quit() --exits the shell of mongoDB
+
+
+
+
